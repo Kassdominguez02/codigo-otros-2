@@ -1,23 +1,27 @@
-var formulario = document.querySelector("#form")
+var formulario = document.querySelector(".formulario"); //la clase del formulario se llama Formulario y para llamar a la clase se usa el .
 
-formulario.onsubmit = function(e) {
+// considero es mejor  llamar al dormulario utilizando el addEventListener con el evento submit
+formulario.addEventListener("submit", function(evento) {
 
-  e.prevent();
+  evento.preventDefault(); // se corrige a event.preventDefault
   
-  var n = formulario.elements[0]
-  var e = formulario.elements[1]
-  var na = formulario.elements[2]
+  // consiero mejor usar document.getElement para traer los elementos del html
+  var n = document.getElementById("name");
+  var e = document.getElementById("age");
+  var na =document.getElementById("nationality");
 
-  var nombre = n.value
-  var edad = e.value
+  // se accede al valor de cada elemento
+  var nombre = n.value;
+  var edad = e.value;
 
-  var i = na.selectedIndex
-  var nacionalidad = na.options[i].value
-  console.log(nombre, edad)
-  console.log(nacionalidad)
+  var i = na.selectedIndex; // obtiene el indice del elemento seleccionado en el imput de nacionalidad
+  var nacionalidad = na.options[i].value;
+  console.log(nombre, edad);
+  console.log(nacionalidad);
 
+  // validacion de formulario, que no exista un cambio vacio, si esta vacio el input se marcara en rojo
   if (nombre.length === 0) {
-    n.classList.add("error")
+    n.classList.add("error"); // cambia la clase para que obtenga el estilo declarado en el css.
   }
   if (edad < 18 || edad > 120) {
     e.classList.add("error")
@@ -28,70 +32,76 @@ if (nombre.length > 0
     && edad < 120) ) {
   agregarInvitado(nombre, edad, nacionalidad)
   }
-}
+});
+
+/*  este  codigo esta repetido mas abago dentro de la funcion agregar invitado
 
 var botonBorrar = document.createElement("button")
-botonBorrar.textContent = "Eliminar invitado"
-botonBorrar.id = "boton-borrar"
+botonBorrar.textContent = "Eliminar invitado";
+botonBorrar.id = "boton-borrar";
 var corteLinea = document.createElement("br")
 document.body.appendChild(corteLinea)
 document.body.appendChild(botonBorrar);
+*/
 
 function agregarInvitado(nombre, edad, nacionalidad) {
 
   if (nacionalidad === "ar") {
-    nacionalidad = "Argentina"
+    nacionalidad = "Argentina";
   }
   else if (nacionalidad === "mx") {
-    nacionalidad = "Mexicana"
+    nacionalidad = "Mexicana";
   }
   else if (nacionalidad === "vnzl") {
-    nacionalidad = "Venezolana"
+    nacionalidad = "Venezolana";
   }
   else if (nacionalidad === "per") {
-    nacionalidad = "Peruana"
+    nacionalidad = "Peruana";
   }
 
 var lista = document.getElementById("lista-de-invitados")
 
-var elementoLista = document.createElement("div")
-elementoLista.classList.added("elemento-lista")
-lista.appendChild(elementoLista)
+// en esta parte se estan creando los elementos para el html
+var elementoLista = document.createElement("div");
+elementoLista.classList.add("elemento-lista"); // se cambie el added por add 
+lista.appendChild(elementoLista);
 
-var spanNombre = document.createElement("span")
-var inputNombre = document.createElement("input")
-var espacio = document.createElement("br")
-spanNombre.textContent = "Nombre: "
-inputNombre.value = nombre 
-elementoLista.appendChild(spanNombre)
-elementoLista.appendChild(inputNombre)
-elementoLista.appendChild(espacio)
+var spanNombre = document.createElement("span");
+var inputNombre = document.createElement("input");
+var espacio = document.createElement("br");
+//spanNombre.textContent = "Nombre: "; // este codigo esta repetido en la funcion crear elemento
+//inputNombre.value = nombre ; //// este codigo esta repetido en la funcion crear elemento
+elementoLista.appendChild(spanNombre); // en esta parte se estan agrupando todo los elementos dentro de un div en el html
+elementoLista.appendChild(inputNombre);
+elementoLista.appendChild(espacio);
 
 function crearElemento(descripcion, valor) {
-var spanNombre = document.createElement("span")
-var inputNombre = document.createElement("input")
-var espacio = document.createElement("br")
-spanNombre.textContent = descripcion + ": "
-inputNombre.value = valor 
-elementoLista.appendChild(spanNombre)
-elementoLista.appendChild(inputNombre)
-elementoLista.appendChild(espacio)
+var spanNombre = document.createElement("span");
+var inputNombre = document.createElement("input");
+var espacio = document.createElement("br");
+spanNombre.textContent = descripcion + ": ";
+inputNombre.value = valor;
+elementoLista.appendChild(spanNombre);
+elementoLista.appendChild(inputNombre);
+elementoLista.appendChild(espacio);
 }
 
-crearElemento("Nombre", nombre)
-crearElemento("Edad", edad)
-crearElemento("Nacionalidad", nacionalidad)
+crearElemento("Nombre", nombre);
+crearElemento("Edad", edad);
+crearElemento("Nacionalidad", nacionalidad);
 
 
-var botonBorrar = document.createElement("button")
-botonBorrar.textContent = "Eliminar invitado"
-botonBorrar.id = "boton-borrar"
-var corteLinea = document.createElement("br")
-elementoLista.appendChild(corteLinea)
+var botonBorrar = document.createElement("button");
+botonBorrar.textContent = "Eliminar invitado";
+botonBorrar.id = "boton-borrar";
+var corteLinea = document.createElement("br");
+elementoLista.appendChild(corteLinea);
 elementoLista.appendChild(botonBorrar);
 
  botonBorrar.onclick = function() {
 // this.parentNode.style.display = 'none';
 botonBorrar.parentNode.remove()
-  }
-}
+  };
+};
+
+// fataban los ; en casi todo el codigo.
